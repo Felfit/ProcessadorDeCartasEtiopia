@@ -1,0 +1,30 @@
+#!/usr/bin/gawk -f
+
+BEGIN {
+        FS = ";";
+}
+
+NF>1{
+        gsub("[ ]{2,}","",$3);
+        split($3,places,", ");
+        ano = int($2);
+        for (place in places) {
+            local = places[place];
+            sitio[local][ano]++;
+        }
+        if (length(places) == 0) {
+            sitio["Nil"][ano]++;            
+        }
+    }
+
+END {
+    for (loc in sitio){
+        print "Local:",loc
+        total=0;
+        for (ano in sitio[loc]){
+            print "\tAno:",ano,"\n\t\tNúmero de cartas:"sitio[loc][ano];
+            total +=sitio[loc][ano];
+        }
+        print "\tTotal de cartas:",total;
+    }
+}
