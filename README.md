@@ -1,6 +1,7 @@
 # Processador de Cartas setecentistas da Etiópia
 
-### TP2 de Processamento de Linguagens (GAWK). 
+## TP2 de Processamento de Linguagens (GAWK). 
+### Enunciado
 Construa um ou mais programas **Awk** que processem o arquivo de modo a:
 - [ ] Contar o número de cartas por local relacionado-as com o ano de escrita
     - Considerar o local NIL quando se desconhece
