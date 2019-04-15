@@ -1,0 +1,25 @@
+#!/usr/bin/gawk -f
+
+BEGIN {
+        FS = ";";
+        print "digraph autores {";
+}
+
+NF>1{
+        gsub("[ ]","",$5);
+        split($5,autores,":");
+        if (length(autores)>2) {   
+            string = "\t"autores[1];
+            for (i = 1;i<(length(autores)-1); i++){
+                string= "\t"autores[i] " -> " autores[i+1]";";
+                ligacoes[string]=1;
+            }
+        }        
+    }
+
+END {
+        for (ligacao in ligacoes) {
+            print ligacao;
+        }
+        print "}";
+}
