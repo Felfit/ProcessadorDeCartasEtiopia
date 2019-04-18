@@ -1,0 +1,15 @@
+#!/usr/bin/gawk -f
+
+BEGIN {
+        FS = ";";
+}
+
+NF>1{
+        split($5, apelidos, ":");
+        for(i in apelidos) {
+            gsub(/        /,"",apelidos[i]);
+            if(apelidos[i] != "") {
+                print $1 " - " apelidos[i];
+            }
+        }
+    }

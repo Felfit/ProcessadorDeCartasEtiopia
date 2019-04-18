@@ -1,0 +1,68 @@
+#!/usr/bin/gawk -f
+
+BEGIN {
+        FS = ";";
+}
+
+NF>1{
+        split($2, data, ".");
+        ano = int(data[1]);
+        anos[ano] = ano;
+        resumo[ano][numCartas[ano]++] = $4;
+    }
+
+END {
+    output = "index.html";
+    printHTMLBegin();
+    printTitle("Índice de Cartas da Etiópia");
+    for(ano in anos) {
+        href = ano ".html";
+        links[ano] = link(href, ano);
+    }
+    printUl(links);
+    printHTMLEnd();
+
+    for(ano in resumo){
+        output = ano ".html";
+        printHTMLBegin();
+        printTitle(ano);
+        printUl(resumo[ano]);
+    }
+    printHTMLEnd();
+}
+
+function printHTMLBegin(heads) {
+    print "<html>" > output;
+    print "\t<head>" > output;
+    print "\t\t<meta charset='UTF-8'>" > output;
+    for(i in heads) {
+        print "\t\t" heads[i] > output;
+    }
+    print "\t</head>" > output;
+    print "\t<body>" > output;
+}
+
+function printHTMLEnd() {
+    print "\t</body>" > output;
+    print "</html>" > output;
+}
+
+function printTitle(titulo) {
+    print "\t\t<h1>" titulo "</h1>" > output;
+}
+
+function printTable() {
+    print "\t\t<table>" > output;
+}
+
+function printUl(elems) {
+    print "\t\t<ul>" > output;
+    for(i in elems) {
+        print "\t\t\t<li>" elems[i] "</li>" > output;
+    }
+    print "\t\t</ul>" > output;
+}
+
+function link(href, innerHTML) {
+    return "<a href='" href "'>" innerHTML "</a>";
+}
