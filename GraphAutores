@@ -3,6 +3,7 @@
 BEGIN {
         FS = ";";
         print "digraph autores {";
+        print "\tconcentrate=true";
 }
 
 NF>1{
