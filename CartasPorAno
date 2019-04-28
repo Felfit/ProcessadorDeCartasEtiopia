@@ -7,26 +7,28 @@ BEGIN {
 NF>1{
         split($2, data, ".");
         ano = int(data[1]);
-        anos[ano] = ano;
-        resumo[ano][numCartas[ano]++] = $4;
+        resumos[ano][numCartas[ano]++] = $4;
     }
 
 END {
     output = "index.html";
-    printHTMLBegin();
+    head[0] = "<title>Cartas da Etiópia</title>"
+    head[1] = "<link rel='shortcut icon' type='image/svg' href='https://image.flaticon.com/icons/svg/12/12194.svg'/>"
+    printHTMLBegin(head);
     printTitle("Índice de Cartas da Etiópia");
-    for(ano in anos) {
+    for(ano in resumos) {
         href = ano ".html";
         links[ano] = link(href, ano);
     }
     printUl(links);
     printHTMLEnd();
 
-    for(ano in resumo){
+    for(ano in resumos){
         output = ano ".html";
-        printHTMLBegin();
+        head[0] = "<title>Cartas da Etiópia - " ano "</title>"
+        printHTMLBegin(head);
         printTitle(ano);
-        printUl(resumo[ano]);
+        printUl(resumos[ano]);
     }
     printHTMLEnd();
 }
